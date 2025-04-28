@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="DataModel.Users" />
+    <EntitySet Name="Guesses" EntityType="DataModel.Guesses" />
+    <AssociationSet Name="UsersGuesses" Association="DataModel.UsersGuesses">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Guesses" EntitySet="Guesses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="Created_at" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Guesses" Relationship="DataModel.UsersGuesses" FromRole="Users" ToRole="Guesses" />
+  </EntityType>
+  <EntityType Name="Guesses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WordGuessed" Type="String" Nullable="false" />
+    <Property Name="WordToGuess" Type="String" Nullable="false" />
+    <Property Name="GuessTime" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DataModel.UsersGuesses" FromRole="Guesses" ToRole="Users" />
+    <Property Name="UsersId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersGuesses">
+    <End Type="DataModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="DataModel.Guesses" Role="Guesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guesses">
+        <PropertyRef Name="UsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

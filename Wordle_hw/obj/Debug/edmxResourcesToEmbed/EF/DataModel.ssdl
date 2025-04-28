@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="Users" EntityType="DataModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Guesses" EntityType="DataModel.Store.Guesses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsersGuesses" Association="DataModel.Store.UsersGuesses">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Guesses" EntitySet="Guesses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created_at" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Guesses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WordGuessed" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WordToGuess" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GuessTime" Type="datetime" Nullable="false" />
+    <Property Name="UsersId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersGuesses">
+    <End Role="Users" Type="DataModel.Store.Users" Multiplicity="1" />
+    <End Role="Guesses" Type="DataModel.Store.Guesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guesses">
+        <PropertyRef Name="UsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
