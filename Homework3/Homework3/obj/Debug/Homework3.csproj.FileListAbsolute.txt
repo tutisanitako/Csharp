@@ -1,0 +1,17 @@
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.csproj.AssemblyReference.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.Properties.Resources.resources
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.csproj.GenerateResource.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.csproj.CoreCompileInputs.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\Homework3.exe.config
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\Homework3.exe
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\Homework3.pdb
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\DataEntity.dll
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\EntityFramework.dll
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\DataEntity.pdb
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\DataEntity.dll.config
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\EntityFramework.xml
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.csproj.CopyComplete
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.exe
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\Homework3\Homework3\obj\Debug\Homework3.pdb
