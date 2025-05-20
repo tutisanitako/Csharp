@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="SuppliersSet" EntityType="Model1.Suppliers" />
+    <EntitySet Name="ProductsSet" EntityType="Model1.Products" />
+    <AssociationSet Name="ProductsSuppliers" Association="Model1.ProductsSuppliers">
+      <End Role="Products" EntitySet="ProductsSet" />
+      <End Role="Suppliers" EntitySet="SuppliersSet" />
+    </AssociationSet>
+    <EntitySet Name="OrderItemSet" EntityType="Model1.OrderItem" />
+    <EntitySet Name="OrderSet" EntityType="Model1.Order" />
+    <AssociationSet Name="OrderItemOrder" Association="Model1.OrderItemOrder">
+      <End Role="OrderItem" EntitySet="OrderItemSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductsOrderItem" Association="Model1.ProductsOrderItem">
+      <End Role="OrderItem" EntitySet="OrderItemSet" />
+      <End Role="Products" EntitySet="ProductsSet" />
+    </AssociationSet>
+    <EntitySet Name="CustomerSet" EntityType="Model1.Customer" />
+    <AssociationSet Name="OrderCustomer" Association="Model1.OrderCustomer">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Customer" EntitySet="CustomerSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" Nullable="false" />
+    <Property Name="ContactName" Type="String" Nullable="false" />
+    <Property Name="ContactTitle" Type="String" Nullable="false" />
+    <Property Name="City" Type="String" Nullable="false" />
+    <Property Name="Country" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <Property Name="Fax" Type="String" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Model1.ProductsSuppliers" FromRole="Suppliers" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" />
+    <Property Name="Package" Type="String" Nullable="false" />
+    <Property Name="IsDiscontinued" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Suppliers" Relationship="Model1.ProductsSuppliers" FromRole="Products" ToRole="Suppliers" />
+    <NavigationProperty Name="OrderItem" Relationship="Model1.ProductsOrderItem" FromRole="Products" ToRole="OrderItem" />
+  </EntityType>
+  <Association Name="ProductsSuppliers">
+    <End Type="Model1.Products" Role="Products" Multiplicity="*" />
+    <End Type="Model1.Suppliers" Role="Suppliers" Multiplicity="1" />
+  </Association>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Model1.OrderItemOrder" FromRole="OrderItem" ToRole="Order" />
+    <NavigationProperty Name="Products" Relationship="Model1.ProductsOrderItem" FromRole="OrderItem" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+    <Property Name="OrderNumber" Type="String" Nullable="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="OrderItem" Relationship="Model1.OrderItemOrder" FromRole="Order" ToRole="OrderItem" />
+    <NavigationProperty Name="Customer" Relationship="Model1.OrderCustomer" FromRole="Order" ToRole="Customer" />
+  </EntityType>
+  <Association Name="OrderItemOrder">
+    <End Type="Model1.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <End Type="Model1.Order" Role="Order" Multiplicity="1" />
+  </Association>
+  <Association Name="ProductsOrderItem">
+    <End Type="Model1.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <End Type="Model1.Products" Role="Products" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="City" Type="String" Nullable="false" />
+    <Property Name="Country" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Model1.OrderCustomer" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <Association Name="OrderCustomer">
+    <End Type="Model1.Order" Role="Order" Multiplicity="*" />
+    <End Type="Model1.Customer" Role="Customer" Multiplicity="1" />
+  </Association>
+</Schema>

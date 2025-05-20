@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="SuppliersSet" EntityType="Model1.Store.SuppliersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductsSet" EntityType="Model1.Store.ProductsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderItemSet" EntityType="Model1.Store.OrderItemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="Model1.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerSet" EntityType="Model1.Store.CustomerSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProductsSuppliers" Association="Model1.Store.ProductsSuppliers">
+      <End Role="Products" EntitySet="ProductsSet" />
+      <End Role="Suppliers" EntitySet="SuppliersSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderItemOrder" Association="Model1.Store.OrderItemOrder">
+      <End Role="OrderItem" EntitySet="OrderItemSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductsOrderItem" Association="Model1.Store.ProductsOrderItem">
+      <End Role="OrderItem" EntitySet="OrderItemSet" />
+      <End Role="Products" EntitySet="ProductsSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderCustomer" Association="Model1.Store.OrderCustomer">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Customer" EntitySet="CustomerSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SuppliersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContactName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContactTitle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fax" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Nullable="false" />
+    <Property Name="Package" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsDiscontinued" Type="bit" Nullable="false" />
+    <Property Name="Suppliers_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="false" />
+    <Property Name="Products_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="OrderNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Nullable="false" />
+    <Property Name="Customer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductsSuppliers">
+    <End Role="Products" Type="Model1.Store.ProductsSet" Multiplicity="*" />
+    <End Role="Suppliers" Type="Model1.Store.SuppliersSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Suppliers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderItemOrder">
+    <End Role="OrderItem" Type="Model1.Store.OrderItemSet" Multiplicity="*" />
+    <End Role="Order" Type="Model1.Store.OrderSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductsOrderItem">
+    <End Role="OrderItem" Type="Model1.Store.OrderItemSet" Multiplicity="*" />
+    <End Role="Products" Type="Model1.Store.ProductsSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="Products_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderCustomer">
+    <End Role="Order" Type="Model1.Store.OrderSet" Multiplicity="*" />
+    <End Role="Customer" Type="Model1.Store.CustomerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

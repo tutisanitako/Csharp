@@ -1,0 +1,15 @@
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\quiz1Forms.exe.config
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\quiz1Forms.exe
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\quiz1Forms.pdb
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\EntityFramework.dll
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\EntityFramework.xml
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.csproj.AssemblyReference.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.Form1.resources
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.Properties.Resources.resources
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.csproj.GenerateResource.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.csproj.CoreCompileInputs.cache
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.csproj.CopyComplete
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.exe
+C:\Users\tutis\OneDrive\Desktop\GAU\s6\c#\quiz1Forms\quiz1Forms\obj\Debug\quiz1Forms.pdb
