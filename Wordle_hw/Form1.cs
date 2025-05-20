@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace Wordle_hw
 {
@@ -74,6 +76,13 @@ namespace Wordle_hw
             txtRegisterPassword.Text = "";
         }
 
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
+
+
         private void btnLoginRegister_Click(object sender, EventArgs e)
         {
             ShowLoginPage();
@@ -96,13 +105,30 @@ namespace Wordle_hw
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            lblLoginError.Visible = false;
+
+            string email = txtLoginEmail.Text.Trim();
+            string password = txtLoginPassword.Text;
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                lblLoginError.Text = "Email and password are required.";
+                lblLoginError.Visible = true;
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                lblLoginError.Text = "Invalid email format.";
+                lblLoginError.Visible = true;
+                return;
+            }
+
             try
             {
                 using (var context = new EF.DataModelContainer())
                 {
-                    var user = context.Users.FirstOrDefault(u =>
-                        u.Email == txtLoginEmail.Text &&
-                        u.Password == txtLoginPassword.Text);
+                    var user = context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
 
                     if (user != null)
                     {
@@ -123,35 +149,65 @@ namespace Wordle_hw
             }
         }
 
+
+
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtRegisterUsername.Text) ||
-                string.IsNullOrWhiteSpace(txtRegisterEmail.Text) ||
-                string.IsNullOrWhiteSpace(txtRegisterPassword.Text))
+            lblRegisterError.Visible = false;
+
+            string username = txtRegisterUsername.Text.Trim();
+            string email = txtRegisterEmail.Text.Trim();
+            string password = txtRegisterPassword.Text;
+
+            if (string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(password))
             {
                 lblRegisterError.Text = "All fields are required.";
                 lblRegisterError.Visible = true;
                 return;
             }
 
+            if (!IsValidEmail(email))
+            {
+                lblRegisterError.Text = "Invalid email format.";
+                lblRegisterError.Visible = true;
+                return;
+            }
+
             try
             {
-                // Create a new user entity
-                var newUser = new EF.Users
-                {
-                    UserName = txtRegisterUsername.Text,
-                    Email = txtRegisterEmail.Text,
-                    Password = txtRegisterPassword.Text, // In a real app, you should hash this password
-                    Created_at = DateTime.Now
-                };
-
-                // Save to the database
                 using (var context = new EF.DataModelContainer())
                 {
+                    // Check for existing username or email
+                    bool emailExists = context.Users.Any(u => u.Email == email);
+                    bool usernameExists = context.Users.Any(u => u.UserName == username);
+
+                    if (emailExists)
+                    {
+                        lblRegisterError.Text = "This email is already registered.";
+                        lblRegisterError.Visible = true;
+                        return;
+                    }
+
+                    if (usernameExists)
+                    {
+                        lblRegisterError.Text = "This username is already taken.";
+                        lblRegisterError.Visible = true;
+                        return;
+                    }
+
+                    var newUser = new EF.Users
+                    {
+                        UserName = username,
+                        Email = email,
+                        Password = password, // Note: Use hashed passwords in production
+                        Created_at = DateTime.Now
+                    };
+
                     context.Users.Add(newUser);
                     context.SaveChanges();
 
-                    // Create the in-memory user object after successful save
                     _currentUser = new User { UserName = newUser.UserName, Email = newUser.Email };
                 }
 
@@ -164,6 +220,8 @@ namespace Wordle_hw
                 lblRegisterError.Visible = true;
             }
         }
+
+
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
