@@ -4,7 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using DataEntity;
+using Homework3.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace Homework3
 {
@@ -20,7 +21,7 @@ namespace Homework3
         }
 
         private PageState _currentPage = PageState.Description;
-        private Users _currentUser = null;
+        private User _currentUser = null;
         private string _targetWord;
         private int _currentAttempt = 0;
         private const int MaxAttempts = 6;
@@ -32,35 +33,53 @@ namespace Homework3
         public Form1()
         {
             InitializeComponent();
-            InitializeDatabase(); // Add this line
+            InitializeDatabase();
+
+            // Enable key events for physical keyboard support
+            this.KeyPreview = true;
+            this.KeyDown += Form1_KeyDown;
+
             ShowDescriptionPage();
         }
 
         private void InitializeDatabase()
         {
-            using (var context = new DataModel())
+            var optionsBuilder = new DbContextOptionsBuilder<WordleModel>();
+            optionsBuilder.UseSqlServer("Data Source=PHOENIX\\MSSQLSERVER01;Initial Catalog=WordleDbcs;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+            using (var context = new WordleModel(optionsBuilder.Options))
             {
+                // Ensure database is created
+                context.Database.EnsureCreated();
+
                 // Check if there are any selectable words
                 if (!context.Words.Any(w => w.IsSelectable))
                 {
-                    var defaultWords = new List<Words>
-            {
-                new Words { Word = "BLACK", IsSelectable = true },
-                new Words { Word = "FLOAT", IsSelectable = true },
-                new Words { Word = "AISLE", IsSelectable = true },
-                new Words { Word = "HATCH", IsSelectable = true },
-                new Words { Word = "MELTS", IsSelectable = true },
-                new Words { Word = "CRANE", IsSelectable = true },
-                new Words { Word = "SLATE", IsSelectable = true },
-                new Words { Word = "HOUSE", IsSelectable = true },
-                new Words { Word = "FLAME", IsSelectable = true },
-                new Words { Word = "STORM", IsSelectable = true }
-            };
+                    var defaultWords = new List<Word>
+                    {
+                        new Word { WordText = "BLACK", IsSelectable = true },
+                        new Word { WordText = "FLOAT", IsSelectable = true },
+                        new Word { WordText = "AISLE", IsSelectable = true },
+                        new Word { WordText = "HATCH", IsSelectable = true },
+                        new Word { WordText = "MELTS", IsSelectable = true },
+                        new Word { WordText = "CRANE", IsSelectable = true },
+                        new Word { WordText = "SLATE", IsSelectable = true },
+                        new Word { WordText = "HOUSE", IsSelectable = true },
+                        new Word { WordText = "FLAME", IsSelectable = true },
+                        new Word { WordText = "STORM", IsSelectable = true }
+                    };
 
                     context.Words.AddRange(defaultWords);
                     context.SaveChanges();
                 }
             }
+        }
+
+        private WordleModel GetContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<WordleModel>();
+            optionsBuilder.UseSqlServer("Data Source=PHOENIX\\MSSQLSERVER01;Initial Catalog=WordleDbcs;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            return new WordleModel(optionsBuilder.Options);
         }
 
         private void ShowDescriptionPage()
@@ -127,13 +146,15 @@ namespace Homework3
             pnlStatistics.Visible = true;
             pnlGame.Visible = false;
 
-            using (var context = new DataModel())
+            using (var context = GetContext())
             {
                 var stats = context.UserStatistics.FirstOrDefault(s => s.UserId == _currentUser.Id);
                 if (stats != null)
                 {
                     lblPlayed.Text = stats.GamesPlayed.ToString();
-                    lblWinPercent.Text = stats.WinningPercentage?.ToString("F0") + "%" ?? "0%";
+                    // Calculate win percentage manually since it's not a computed column in Code First
+                    double winPercentage = stats.GamesPlayed > 0 ? (double)stats.Wins / stats.GamesPlayed * 100 : 0;
+                    lblWinPercent.Text = winPercentage.ToString("F0") + "%";
                     lblCurrentStreak.Text = stats.CurrentStreak.ToString();
                     lblMaxStreak.Text = stats.MaxStreak.ToString();
                 }
@@ -156,13 +177,115 @@ namespace Homework3
             pnlStatistics.Visible = false;
             pnlGame.Visible = true;
 
+            InitializeGameControls();
             StartNewGame();
+        }
+
+        private void InitializeGameControls()
+        {
+            // Clear existing controls if any
+            _gridLabels.Clear();
+            _keyboardButtons.Clear();
+
+            // Clear only dynamically created controls, preserve static ones
+            var controlsToRemove = pnlGame.Controls.Cast<Control>()
+                .Where(c => c is Panel || (c is Button && c.Name != "btnGameBack"))
+                .ToList();
+
+            foreach (Control control in controlsToRemove)
+            {
+                pnlGame.Controls.Remove(control);
+            }
+
+            // Game Grid - centered and properly spaced
+            int tileSize = 50;
+            int spacing = 5;
+            int gridWidth = 5 * tileSize + 4 * spacing; // Total width of the grid
+            int startX = (pnlGame.Width - gridWidth) / 2; // Center horizontally
+            int startY = 50; // Start from top with some margin
+
+            for (int row = 0; row < 6; row++)
+            {
+                for (int col = 0; col < 5; col++)
+                {
+                    Panel tile = new Panel();
+                    tile.Size = new Size(tileSize, tileSize);
+                    tile.Location = new Point(startX + col * (tileSize + spacing), startY + row * (tileSize + spacing));
+                    tile.BorderStyle = BorderStyle.FixedSingle;
+                    tile.BackColor = Color.White;
+
+                    Label lblLetter = new Label();
+                    lblLetter.Font = new Font("Arial", 18, FontStyle.Bold);
+                    lblLetter.AutoSize = false;
+                    lblLetter.Size = new Size(tileSize, tileSize);
+                    lblLetter.TextAlign = ContentAlignment.MiddleCenter;
+                    lblLetter.BackColor = Color.Transparent;
+                    lblLetter.ForeColor = Color.Black;
+
+                    tile.Controls.Add(lblLetter);
+                    pnlGame.Controls.Add(tile);
+                    _gridLabels.Add(lblLetter);
+                }
+            }
+
+            // Keyboard - positioned below the grid
+            string[] keyboardRows = new string[] { "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM" };
+            int keyboardStartY = startY + 6 * (tileSize + spacing) + 30; // Position below grid
+            int keySize = 35;
+            int keySpacing = 3;
+
+            for (int row = 0; row < keyboardRows.Length; row++)
+            {
+                string currentRow = keyboardRows[row];
+                int rowWidth = currentRow.Length * keySize + (currentRow.Length - 1) * keySpacing;
+                int rowStartX = (pnlGame.Width - rowWidth) / 2; // Center each row
+
+                for (int col = 0; col < currentRow.Length; col++)
+                {
+                    Button btn = new Button();
+                    btn.Size = new Size(keySize, keySize);
+                    btn.Location = new Point(rowStartX + col * (keySize + keySpacing), keyboardStartY + row * (keySize + keySpacing));
+                    btn.Text = currentRow[col].ToString();
+                    btn.Font = new Font("Arial", 12, FontStyle.Bold);
+                    btn.Click += new EventHandler(this.KeyboardButton_Click);
+                    btn.BackColor = SystemColors.Control;
+                    btn.ForeColor = Color.Black;
+
+                    pnlGame.Controls.Add(btn);
+                    _keyboardButtons.Add(currentRow[col], btn);
+                }
+            }
+
+            // Enter and Backspace Buttons - positioned on the bottom row
+            int bottomRowY = keyboardStartY + 2 * (keySize + keySpacing);
+
+            Button btnEnter = new Button();
+            btnEnter.Size = new Size(70, keySize);
+            btnEnter.Location = new System.Drawing.Point(18, 495);
+            btnEnter.Text = "ENTER";
+            btnEnter.Font = new Font("Arial", 9, FontStyle.Bold);
+            btnEnter.Click += new EventHandler(this.KeyboardButton_Click);
+            btnEnter.BackColor = SystemColors.Control;
+            btnEnter.ForeColor = Color.Black;
+            btnEnter.Name = "btnEnter"; // Add name for identification
+            pnlGame.Controls.Add(btnEnter);
+
+            Button btnBackspace = new Button();
+            btnBackspace.Size = new Size(70, keySize);
+            btnBackspace.Location = new System.Drawing.Point(558, 495);
+            btnBackspace.Text = "⌫";
+            btnBackspace.Font = new Font("Arial", 14, FontStyle.Bold);
+            btnBackspace.Click += new EventHandler(this.KeyboardButton_Click);
+            btnBackspace.BackColor = SystemColors.Control;
+            btnBackspace.ForeColor = Color.Black;
+            btnBackspace.Name = "btnBackspace"; // Add name for identification
+            pnlGame.Controls.Add(btnBackspace);
         }
 
         private void StartNewGame()
         {
             _currentAttempt = 0;
-            using (var context = new DataModel())
+            using (var context = GetContext())
             {
                 // Ensure there are selectable words in the database
                 var selectableWords = context.Words.Where(w => w.IsSelectable).ToList();
@@ -170,14 +293,14 @@ namespace Homework3
                 // If no selectable words exist, add some default ones
                 if (!selectableWords.Any())
                 {
-                    var defaultWords = new List<Words>
-            {
-                new Words { Word = "BLACK", IsSelectable = true },
-                new Words { Word = "FLOAT", IsSelectable = true },
-                new Words { Word = "AISLE", IsSelectable = true },
-                new Words { Word = "HATCH", IsSelectable = true },
-                new Words { Word = "MELTS", IsSelectable = true }
-            };
+                    var defaultWords = new List<Word>
+                    {
+                        new Word { WordText = "BLACK", IsSelectable = true },
+                        new Word { WordText = "FLOAT", IsSelectable = true },
+                        new Word { WordText = "AISLE", IsSelectable = true },
+                        new Word { WordText = "HATCH", IsSelectable = true },
+                        new Word { WordText = "MELTS", IsSelectable = true }
+                    };
 
                     context.Words.AddRange(defaultWords);
                     context.SaveChanges();
@@ -185,7 +308,7 @@ namespace Homework3
                 }
 
                 // Now select a random word
-                _targetWord = selectableWords[_random.Next(selectableWords.Count)].Word.ToUpper();
+                _targetWord = selectableWords[_random.Next(selectableWords.Count)].WordText.ToUpper();
 
                 // Reset the grid
                 foreach (var label in _gridLabels)
@@ -202,10 +325,49 @@ namespace Homework3
             }
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only handle keyboard input when on the game page
+            if (_currentPage != PageState.Game)
+                return;
+
+            // Prevent default handling to avoid conflicts
+            e.Handled = true;
+
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                SubmitGuess();
+            }
+            else if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            {
+                RemoveLastLetter();
+            }
+            else if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+            {
+                // Convert key to character and add letter
+                char letter = (char)e.KeyCode;
+                AddLetter(letter);
+            }
+        }
+
         private bool IsValidEmail(string email)
         {
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            return !string.IsNullOrWhiteSpace(password) && password.Length >= 8;
+        }
+
+        private bool IsValidWord(string word)
+        {
+            // Check if the word is exactly 5 letters and contains only alphabetic characters
+            if (string.IsNullOrWhiteSpace(word) || word.Length != WordLength)
+                return false;
+
+            return word.All(char.IsLetter);
         }
 
         private void btnLoginRegister_Click(object sender, EventArgs e)
@@ -258,7 +420,7 @@ namespace Homework3
 
             try
             {
-                using (var context = new DataModel())
+                using (var context = GetContext())
                 {
                     var user = context.Users.FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
                     if (user != null)
@@ -301,9 +463,16 @@ namespace Homework3
                 return;
             }
 
+            if (!IsValidPassword(password))
+            {
+                lblRegisterError.Text = "Password must be at least 8 characters long.";
+                lblRegisterError.Visible = true;
+                return;
+            }
+
             try
             {
-                using (var context = new DataModel())
+                using (var context = GetContext())
                 {
                     if (context.Users.Any(u => u.Email == email))
                     {
@@ -312,7 +481,7 @@ namespace Homework3
                         return;
                     }
 
-                    var newUser = new Users
+                    var newUser = new User
                     {
                         Email = email,
                         PasswordHash = password,
@@ -322,7 +491,7 @@ namespace Homework3
                     context.Users.Add(newUser);
                     context.SaveChanges();
 
-                    var userStats = new UserStatistics
+                    var userStats = new UserStatistic
                     {
                         UserId = newUser.Id,
                         GamesPlayed = 0,
@@ -451,6 +620,7 @@ namespace Homework3
         private void KeyboardButton_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
+
             if (btn.Text == "ENTER")
             {
                 SubmitGuess();
@@ -459,7 +629,7 @@ namespace Homework3
             {
                 RemoveLastLetter();
             }
-            else
+            else if (btn.Text.Length == 1 && char.IsLetter(btn.Text[0]))
             {
                 AddLetter(btn.Text[0]);
             }
@@ -467,19 +637,42 @@ namespace Homework3
 
         private void AddLetter(char letter)
         {
-            int index = _currentAttempt * WordLength + _gridLabels.Count(l => l.Text != "" && _gridLabels.IndexOf(l) / WordLength == _currentAttempt);
-            if (index < (_currentAttempt + 1) * WordLength)
+            // Find the current row and count filled letters in that row
+            int rowStart = _currentAttempt * WordLength;
+            int filledInCurrentRow = 0;
+
+            for (int i = 0; i < WordLength; i++)
             {
-                _gridLabels[index].Text = letter.ToString();
+                if (!string.IsNullOrEmpty(_gridLabels[rowStart + i].Text))
+                {
+                    filledInCurrentRow++;
+                }
+                else
+                {
+                    break; // Stop at first empty cell
+                }
+            }
+
+            // Add letter only if there's space in current row
+            if (filledInCurrentRow < WordLength)
+            {
+                _gridLabels[rowStart + filledInCurrentRow].Text = letter.ToString().ToUpper();
             }
         }
 
         private void RemoveLastLetter()
         {
-            int index = _currentAttempt * WordLength + _gridLabels.Count(l => l.Text != "" && _gridLabels.IndexOf(l) / WordLength == _currentAttempt) - 1;
-            if (index >= _currentAttempt * WordLength)
+            // Find the current row and remove the last filled letter
+            int rowStart = _currentAttempt * WordLength;
+
+            // Find the last filled position in current row
+            for (int i = WordLength - 1; i >= 0; i--)
             {
-                _gridLabels[index].Text = "";
+                if (!string.IsNullOrEmpty(_gridLabels[rowStart + i].Text))
+                {
+                    _gridLabels[rowStart + i].Text = "";
+                    break;
+                }
             }
         }
 
@@ -498,22 +691,40 @@ namespace Homework3
                 return;
             }
 
-            using (var context = new DataModel())
+            // Validate that the guess is a valid word format (5 letters, alphabetic characters only)
+            if (!IsValidWord(guess))
             {
-                if (!context.Words.Any(w => w.Word.ToUpper() == guess))
+                MessageBox.Show("Please enter a valid 5-letter word with only alphabetic characters.");
+                return;
+            }
+
+            using (var context = GetContext())
+            {
+                // Check if the guessed word exists in the database, if not, add it
+                var wordEntity = context.Words.FirstOrDefault(w => w.WordText.ToUpper() == guess.ToUpper());
+                if (wordEntity == null)
                 {
-                    MessageBox.Show("Not a valid word.");
-                    return;
+                    // Add the new word to the database (but not as selectable for target words)
+                    wordEntity = new Word
+                    {
+                        WordText = guess.ToUpper(),
+                        IsSelectable = false // User-entered words are not selectable as target words
+                    };
+                    context.Words.Add(wordEntity);
+                    context.SaveChanges();
                 }
 
-                var game = new Games
+                // Create the game record first
+                var game = new Game
                 {
                     UserId = _currentUser.Id,
-                    WordId = context.Words.First(w => w.Word.ToUpper() == _targetWord).Id,
+                    WordId = context.Words.First(w => w.WordText.ToUpper() == _targetWord).Id,
                     AttemptsUsed = _currentAttempt + 1,
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
+                    Score = 0 // Will be updated based on game outcome
                 };
 
+                // Process the guess and update colors
                 string result = "";
                 for (int i = 0; i < WordLength; i++)
                 {
@@ -539,7 +750,11 @@ namespace Homework3
                     }
                 }
 
-                context.GameAttempts.Add(new GameAttempts
+                // Add the game attempt
+                context.Games.Add(game);
+                context.SaveChanges(); // Save to get the GameId
+
+                context.GameAttempts.Add(new GameAttempt
                 {
                     GameId = game.Id,
                     AttemptNumber = _currentAttempt + 1,
@@ -547,35 +762,45 @@ namespace Homework3
                     Result = result
                 });
 
-                context.Games.Add(game);
-                context.SaveChanges();
-
+                // Get user statistics
                 var stats = context.UserStatistics.First(s => s.UserId == _currentUser.Id);
-                stats.GamesPlayed++;
+
+                // Check if the game is won or lost
                 if (guess == _targetWord)
                 {
+                    // User guessed correctly!
+                    // Scoring: 6 points for 1st attempt, 5 for 2nd, 4 for 3rd, 3 for 4th, 2 for 5th, 1 for 6th
+                    game.Score = Math.Max(1, 7 - (_currentAttempt + 1)); // Ensures minimum 1 point for correct guess
+
+                    stats.GamesPlayed++;
                     stats.Wins++;
                     stats.CurrentStreak++;
                     stats.MaxStreak = Math.Max(stats.MaxStreak, stats.CurrentStreak);
-                    game.Score = 10 - _currentAttempt * 2;
-                    MessageBox.Show($"You won! Score: {game.Score}");
+
+                    MessageBox.Show($"You won! Score: {game.Score} points!");
                     context.SaveChanges();
                     ShowStatisticsPage();
                 }
                 else if (_currentAttempt == MaxAttempts - 1)
                 {
-                    stats.CurrentStreak = 0;
-                    game.Score = 0;
-                    MessageBox.Show($"Game over! The word was: {_targetWord}");
+                    // Game over - user failed to guess the word
+                    game.Score = 0; // Only 0 points when they don't guess the word at all
+
+                    stats.GamesPlayed++;
+                    // stats.Wins stays the same (no win to add)
+                    stats.CurrentStreak = 0; // Reset streak on loss
+
+                    MessageBox.Show($"Game over! The word was: {_targetWord}. Score: 0 points.");
                     context.SaveChanges();
                     ShowStatisticsPage();
                 }
                 else
                 {
+                    // Continue to next attempt
                     _currentAttempt++;
+                    context.SaveChanges(); // Save the attempt but don't update game stats yet
                 }
 
-                stats.WinningPercentage = stats.GamesPlayed > 0 ? (double)stats.Wins / stats.GamesPlayed * 100 : 0;
                 context.SaveChanges();
             }
         }

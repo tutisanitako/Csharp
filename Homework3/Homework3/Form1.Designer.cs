@@ -126,6 +126,8 @@ namespace Homework3
             this.pnlGame = new System.Windows.Forms.Panel();
             this.btnGameBack = new System.Windows.Forms.Button();
             this.lblGameTitle = new System.Windows.Forms.Label();
+            this.btnEnter = new System.Windows.Forms.Button();
+            this.btnBackspace = new System.Windows.Forms.Button();
             this.pnlDescription.SuspendLayout();
             this.pnlAccountLink.SuspendLayout();
             this.pnlLogin.SuspendLayout();
@@ -133,8 +135,9 @@ namespace Homework3
             this.pnlStatistics.SuspendLayout();
             this.pnlGame.SuspendLayout();
             this.SuspendLayout();
-
+            // 
             // pnlDescription
+            // 
             this.pnlDescription.BackColor = System.Drawing.Color.White;
             this.pnlDescription.Controls.Add(this.pnlAccountLink);
             this.pnlDescription.Controls.Add(this.pnlSeparator);
@@ -153,16 +156,18 @@ namespace Homework3
             this.pnlDescription.Name = "pnlDescription";
             this.pnlDescription.Size = new System.Drawing.Size(632, 547);
             this.pnlDescription.TabIndex = 0;
-
+            // 
             // pnlAccountLink
+            // 
             this.pnlAccountLink.Controls.Add(this.lblLinkStats);
             this.pnlAccountLink.Controls.Add(this.lnkAccount);
             this.pnlAccountLink.Location = new System.Drawing.Point(15, 445);
             this.pnlAccountLink.Name = "pnlAccountLink";
             this.pnlAccountLink.Size = new System.Drawing.Size(550, 30);
             this.pnlAccountLink.TabIndex = 19;
-
+            // 
             // lblLinkStats
+            // 
             this.lblLinkStats.AutoSize = true;
             this.lblLinkStats.Font = new System.Drawing.Font("Arial", 12F);
             this.lblLinkStats.Location = new System.Drawing.Point(286, 5);
@@ -170,8 +175,9 @@ namespace Homework3
             this.lblLinkStats.Size = new System.Drawing.Size(126, 18);
             this.lblLinkStats.TabIndex = 2;
             this.lblLinkStats.Text = " to link your stats.";
-
+            // 
             // lnkAccount
+            // 
             this.lnkAccount.AutoSize = true;
             this.lnkAccount.Font = new System.Drawing.Font("Arial", 12F);
             this.lnkAccount.Location = new System.Drawing.Point(11, 5);
@@ -181,23 +187,26 @@ namespace Homework3
             this.lnkAccount.TabStop = true;
             this.lnkAccount.Text = "Log in or create a free NYT account";
             this.lnkAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAccount_LinkClicked);
-
+            // 
             // pnlSeparator
+            // 
             this.pnlSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlSeparator.Location = new System.Drawing.Point(15, 475);
             this.pnlSeparator.Name = "pnlSeparator";
             this.pnlSeparator.Size = new System.Drawing.Size(550, 1);
             this.pnlSeparator.TabIndex = 18;
-
+            // 
             // lblEmailInfo
+            // 
             this.lblEmailInfo.Font = new System.Drawing.Font("Arial", 12F);
             this.lblEmailInfo.Location = new System.Drawing.Point(460, 495);
             this.lblEmailInfo.Name = "lblEmailInfo";
             this.lblEmailInfo.Size = new System.Drawing.Size(200, 20);
             this.lblEmailInfo.TabIndex = 17;
             this.lblEmailInfo.Text = " for our daily reminder email.";
-
+            // 
             // lnkSignUp
+            // 
             this.lnkSignUp.Font = new System.Drawing.Font("Arial", 12F);
             this.lnkSignUp.Location = new System.Drawing.Point(406, 495);
             this.lnkSignUp.Name = "lnkSignUp";
@@ -206,25 +215,29 @@ namespace Homework3
             this.lnkSignUp.TabStop = true;
             this.lnkSignUp.Text = "sign up";
             this.lnkSignUp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSignUp_LinkClicked);
-
+            // 
             // lblDailyInfo
+            // 
             this.lblDailyInfo.Font = new System.Drawing.Font("Arial", 12F);
             this.lblDailyInfo.Location = new System.Drawing.Point(15, 495);
             this.lblDailyInfo.Name = "lblDailyInfo";
             this.lblDailyInfo.Size = new System.Drawing.Size(411, 40);
             this.lblDailyInfo.TabIndex = 15;
             this.lblDailyInfo.Text = "A new puzzle is released daily at midnight. If you haven\'t already, you can";
-
+            // 
             // lblRules2
+            // 
             this.lblRules2.AutoSize = true;
             this.lblRules2.Font = new System.Drawing.Font("Arial", 12F);
             this.lblRules2.Location = new System.Drawing.Point(23, 125);
             this.lblRules2.Name = "lblRules2";
             this.lblRules2.Size = new System.Drawing.Size(561, 18);
             this.lblRules2.TabIndex = 14;
-            this.lblRules2.Text = "• The color of the tiles will change to show how close your guess was to the word.";
-
+            this.lblRules2.Text = "• The color of the tiles will change to show how close your guess was to the word" +
+    ".";
+            // 
             // lblRules1
+            // 
             this.lblRules1.AutoSize = true;
             this.lblRules1.Font = new System.Drawing.Font("Arial", 12F);
             this.lblRules1.Location = new System.Drawing.Point(23, 100);
@@ -232,8 +245,9 @@ namespace Homework3
             this.lblRules1.Size = new System.Drawing.Size(302, 18);
             this.lblRules1.TabIndex = 13;
             this.lblRules1.Text = "• Each guess must be a valid 5-letter word.";
-
+            // 
             // label1
+            // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 14F);
             this.label1.Location = new System.Drawing.Point(23, 70);
@@ -241,8 +255,9 @@ namespace Homework3
             this.label1.Size = new System.Drawing.Size(245, 22);
             this.label1.TabIndex = 12;
             this.label1.Text = "Guess the Wordle in 6 tries.";
-
+            // 
             // lblDescriptionTitle
+            // 
             this.lblDescriptionTitle.AutoSize = true;
             this.lblDescriptionTitle.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblDescriptionTitle.Location = new System.Drawing.Point(23, 20);
@@ -250,8 +265,9 @@ namespace Homework3
             this.lblDescriptionTitle.Size = new System.Drawing.Size(203, 37);
             this.lblDescriptionTitle.TabIndex = 11;
             this.lblDescriptionTitle.Text = "How To Play";
-
+            // 
             // btnLogout
+            // 
             this.btnLogout.Location = new System.Drawing.Point(488, 13);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(95, 28);
@@ -259,8 +275,9 @@ namespace Homework3
             this.btnLogout.Text = "Log Out";
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-
+            // 
             // lblWelcomeUser
+            // 
             this.lblWelcomeUser.AutoSize = true;
             this.lblWelcomeUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcomeUser.Location = new System.Drawing.Point(336, 19);
@@ -268,8 +285,9 @@ namespace Homework3
             this.lblWelcomeUser.Size = new System.Drawing.Size(126, 15);
             this.lblWelcomeUser.TabIndex = 9;
             this.lblWelcomeUser.Text = "Welcome, Username!";
-
+            // 
             // lblExamples
+            // 
             this.lblExamples.AutoSize = true;
             this.lblExamples.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExamples.Location = new System.Drawing.Point(23, 160);
@@ -277,8 +295,9 @@ namespace Homework3
             this.lblExamples.Size = new System.Drawing.Size(84, 19);
             this.lblExamples.TabIndex = 8;
             this.lblExamples.Text = "Examples";
-
+            // 
             // btnLoginRegister
+            // 
             this.btnLoginRegister.Location = new System.Drawing.Point(250, 400);
             this.btnLoginRegister.Name = "btnLoginRegister";
             this.btnLoginRegister.Size = new System.Drawing.Size(150, 30);
@@ -286,8 +305,9 @@ namespace Homework3
             this.btnLoginRegister.Text = "Login / Register";
             this.btnLoginRegister.UseVisualStyleBackColor = true;
             this.btnLoginRegister.Click += new System.EventHandler(this.btnLoginRegister_Click);
-
+            // 
             // pnlLogin
+            // 
             this.pnlLogin.Controls.Add(this.lnkCreateAccount);
             this.pnlLogin.Controls.Add(this.lblLoginError);
             this.pnlLogin.Controls.Add(this.btnLogin);
@@ -301,8 +321,9 @@ namespace Homework3
             this.pnlLogin.Name = "pnlLogin";
             this.pnlLogin.Size = new System.Drawing.Size(632, 547);
             this.pnlLogin.TabIndex = 1;
-
+            // 
             // lnkCreateAccount
+            // 
             this.lnkCreateAccount.AutoSize = true;
             this.lnkCreateAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkCreateAccount.Location = new System.Drawing.Point(237, 391);
@@ -312,8 +333,9 @@ namespace Homework3
             this.lnkCreateAccount.TabStop = true;
             this.lnkCreateAccount.Text = "Don\'t have an account? Sign up";
             this.lnkCreateAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkCreateAccount_Click);
-
+            // 
             // lblLoginError
+            // 
             this.lblLoginError.AutoSize = true;
             this.lblLoginError.ForeColor = System.Drawing.Color.Red;
             this.lblLoginError.Location = new System.Drawing.Point(181, 280);
@@ -322,8 +344,9 @@ namespace Homework3
             this.lblLoginError.TabIndex = 7;
             this.lblLoginError.Text = "Error message appears here";
             this.lblLoginError.Visible = false;
-
+            // 
             // btnLogin
+            // 
             this.btnLogin.BackColor = System.Drawing.Color.Black;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -335,16 +358,18 @@ namespace Homework3
             this.btnLogin.Text = "Continue";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-
+            // 
             // txtLoginPassword
+            // 
             this.txtLoginPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoginPassword.Location = new System.Drawing.Point(181, 245);
             this.txtLoginPassword.Name = "txtLoginPassword";
             this.txtLoginPassword.PasswordChar = '*';
             this.txtLoginPassword.Size = new System.Drawing.Size(284, 23);
             this.txtLoginPassword.TabIndex = 5;
-
+            // 
             // lblPassword
+            // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.Location = new System.Drawing.Point(181, 225);
@@ -352,15 +377,17 @@ namespace Homework3
             this.lblPassword.Size = new System.Drawing.Size(69, 17);
             this.lblPassword.TabIndex = 4;
             this.lblPassword.Text = "Password";
-
+            // 
             // txtLoginEmail
+            // 
             this.txtLoginEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoginEmail.Location = new System.Drawing.Point(181, 195);
             this.txtLoginEmail.Name = "txtLoginEmail";
             this.txtLoginEmail.Size = new System.Drawing.Size(284, 23);
             this.txtLoginEmail.TabIndex = 3;
-
+            // 
             // lblEmail
+            // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.Location = new System.Drawing.Point(181, 175);
@@ -368,8 +395,9 @@ namespace Homework3
             this.lblEmail.Size = new System.Drawing.Size(98, 17);
             this.lblEmail.TabIndex = 2;
             this.lblEmail.Text = "Email Address";
-
+            // 
             // lblLoginTitle
+            // 
             this.lblLoginTitle.AutoSize = true;
             this.lblLoginTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoginTitle.Location = new System.Drawing.Point(180, 117);
@@ -377,8 +405,9 @@ namespace Homework3
             this.lblLoginTitle.Size = new System.Drawing.Size(266, 24);
             this.lblLoginTitle.TabIndex = 1;
             this.lblLoginTitle.Text = "Log in or create an account";
-
+            // 
             // btnCancelLogin
+            // 
             this.btnCancelLogin.Location = new System.Drawing.Point(587, 14);
             this.btnCancelLogin.Name = "btnCancelLogin";
             this.btnCancelLogin.Size = new System.Drawing.Size(35, 23);
@@ -386,8 +415,9 @@ namespace Homework3
             this.btnCancelLogin.Text = "X";
             this.btnCancelLogin.UseVisualStyleBackColor = true;
             this.btnCancelLogin.Click += new System.EventHandler(this.btnCancel_Click);
-
+            // 
             // pnlRegister
+            // 
             this.pnlRegister.Controls.Add(this.txtRegisterUsername);
             this.pnlRegister.Controls.Add(this.label2);
             this.pnlRegister.Controls.Add(this.lnkBackToLogin);
@@ -403,15 +433,17 @@ namespace Homework3
             this.pnlRegister.Name = "pnlRegister";
             this.pnlRegister.Size = new System.Drawing.Size(632, 541);
             this.pnlRegister.TabIndex = 9;
-
+            // 
             // txtRegisterUsername
+            // 
             this.txtRegisterUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegisterUsername.Location = new System.Drawing.Point(178, 187);
             this.txtRegisterUsername.Name = "txtRegisterUsername";
             this.txtRegisterUsername.Size = new System.Drawing.Size(284, 23);
             this.txtRegisterUsername.TabIndex = 10;
-
+            // 
             // label2
+            // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(178, 167);
@@ -419,8 +451,9 @@ namespace Homework3
             this.label2.Size = new System.Drawing.Size(73, 17);
             this.label2.TabIndex = 9;
             this.label2.Text = "Username";
-
+            // 
             // lnkBackToLogin
+            // 
             this.lnkBackToLogin.AutoSize = true;
             this.lnkBackToLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkBackToLogin.Location = new System.Drawing.Point(234, 412);
@@ -430,8 +463,9 @@ namespace Homework3
             this.lnkBackToLogin.TabStop = true;
             this.lnkBackToLogin.Text = "Already have an account? Log in";
             this.lnkBackToLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBackToLogin_Click);
-
+            // 
             // lblRegisterError
+            // 
             this.lblRegisterError.AutoSize = true;
             this.lblRegisterError.ForeColor = System.Drawing.Color.Red;
             this.lblRegisterError.Location = new System.Drawing.Point(178, 320);
@@ -440,8 +474,9 @@ namespace Homework3
             this.lblRegisterError.TabIndex = 7;
             this.lblRegisterError.Text = "Error message appears here";
             this.lblRegisterError.Visible = false;
-
+            // 
             // btnRegister
+            // 
             this.btnRegister.BackColor = System.Drawing.Color.Black;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -453,16 +488,18 @@ namespace Homework3
             this.btnRegister.Text = "Create Account";
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-
+            // 
             // txtRegisterPassword
+            // 
             this.txtRegisterPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegisterPassword.Location = new System.Drawing.Point(178, 285);
             this.txtRegisterPassword.Name = "txtRegisterPassword";
             this.txtRegisterPassword.PasswordChar = '*';
             this.txtRegisterPassword.Size = new System.Drawing.Size(284, 23);
             this.txtRegisterPassword.TabIndex = 5;
-
+            // 
             // label3
+            // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(178, 265);
@@ -470,15 +507,17 @@ namespace Homework3
             this.label3.Size = new System.Drawing.Size(69, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Password";
-
+            // 
             // txtRegisterEmail
+            // 
             this.txtRegisterEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegisterEmail.Location = new System.Drawing.Point(178, 236);
             this.txtRegisterEmail.Name = "txtRegisterEmail";
             this.txtRegisterEmail.Size = new System.Drawing.Size(284, 23);
             this.txtRegisterEmail.TabIndex = 3;
-
+            // 
             // label4
+            // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(178, 216);
@@ -486,8 +525,9 @@ namespace Homework3
             this.label4.Size = new System.Drawing.Size(98, 17);
             this.label4.TabIndex = 2;
             this.label4.Text = "Email Address";
-
+            // 
             // lblRegisterTitle
+            // 
             this.lblRegisterTitle.AutoSize = true;
             this.lblRegisterTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegisterTitle.Location = new System.Drawing.Point(177, 95);
@@ -495,8 +535,9 @@ namespace Homework3
             this.lblRegisterTitle.Size = new System.Drawing.Size(240, 24);
             this.lblRegisterTitle.TabIndex = 1;
             this.lblRegisterTitle.Text = "Create your free account";
-
+            // 
             // btnCancelRegister
+            // 
             this.btnCancelRegister.Location = new System.Drawing.Point(587, 9);
             this.btnCancelRegister.Name = "btnCancelRegister";
             this.btnCancelRegister.Size = new System.Drawing.Size(35, 23);
@@ -504,8 +545,9 @@ namespace Homework3
             this.btnCancelRegister.Text = "X";
             this.btnCancelRegister.UseVisualStyleBackColor = true;
             this.btnCancelRegister.Click += new System.EventHandler(this.btnCancel_Click);
-
+            // 
             // pnlStatistics
+            // 
             this.pnlStatistics.Controls.Add(this.btnStatsBack);
             this.pnlStatistics.Controls.Add(this.btnPlay);
             this.pnlStatistics.Controls.Add(this.lblMaxStreak);
@@ -521,8 +563,9 @@ namespace Homework3
             this.pnlStatistics.Name = "pnlStatistics";
             this.pnlStatistics.Size = new System.Drawing.Size(632, 547);
             this.pnlStatistics.TabIndex = 10;
-
+            // 
             // btnStatsBack
+            // 
             this.btnStatsBack.Location = new System.Drawing.Point(587, 14);
             this.btnStatsBack.Name = "btnStatsBack";
             this.btnStatsBack.Size = new System.Drawing.Size(35, 23);
@@ -530,8 +573,9 @@ namespace Homework3
             this.btnStatsBack.Text = "X";
             this.btnStatsBack.UseVisualStyleBackColor = true;
             this.btnStatsBack.Click += new System.EventHandler(this.btnStatsBack_Click);
-
+            // 
             // btnPlay
+            // 
             this.btnPlay.Location = new System.Drawing.Point(250, 400);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(150, 30);
@@ -539,97 +583,110 @@ namespace Homework3
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
-
+            // 
             // lblMaxStreak
+            // 
             this.lblMaxStreak.AutoSize = true;
             this.lblMaxStreak.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblMaxStreak.Location = new System.Drawing.Point(500, 150);
             this.lblMaxStreak.Name = "lblMaxStreak";
-            this.lblMaxStreak.Size = new System.Drawing.Size(30, 37);
+            this.lblMaxStreak.Size = new System.Drawing.Size(35, 37);
             this.lblMaxStreak.TabIndex = 8;
             this.lblMaxStreak.Text = "0";
-
+            // 
             // lblMaxStreakLabel
+            // 
             this.lblMaxStreakLabel.AutoSize = true;
             this.lblMaxStreakLabel.Font = new System.Drawing.Font("Arial", 12F);
             this.lblMaxStreakLabel.Location = new System.Drawing.Point(480, 190);
             this.lblMaxStreakLabel.Name = "lblMaxStreakLabel";
-            this.lblMaxStreakLabel.Size = new System.Drawing.Size(81, 18);
+            this.lblMaxStreakLabel.Size = new System.Drawing.Size(87, 18);
             this.lblMaxStreakLabel.TabIndex = 7;
             this.lblMaxStreakLabel.Text = "Max Streak";
-
+            // 
             // lblCurrentStreak
+            // 
             this.lblCurrentStreak.AutoSize = true;
             this.lblCurrentStreak.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblCurrentStreak.Location = new System.Drawing.Point(350, 150);
             this.lblCurrentStreak.Name = "lblCurrentStreak";
-            this.lblCurrentStreak.Size = new System.Drawing.Size(30, 37);
+            this.lblCurrentStreak.Size = new System.Drawing.Size(35, 37);
             this.lblCurrentStreak.TabIndex = 6;
             this.lblCurrentStreak.Text = "0";
-
+            // 
             // lblCurrentStreakLabel
+            // 
             this.lblCurrentStreakLabel.AutoSize = true;
             this.lblCurrentStreakLabel.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCurrentStreakLabel.Location = new System.Drawing.Point(330, 190);
             this.lblCurrentStreakLabel.Name = "lblCurrentStreakLabel";
-            this.lblCurrentStreakLabel.Size = new System.Drawing.Size(88, 18);
+            this.lblCurrentStreakLabel.Size = new System.Drawing.Size(109, 18);
             this.lblCurrentStreakLabel.TabIndex = 5;
             this.lblCurrentStreakLabel.Text = "Current Streak";
-
+            // 
             // lblWinPercent
+            // 
             this.lblWinPercent.AutoSize = true;
             this.lblWinPercent.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblWinPercent.Location = new System.Drawing.Point(200, 150);
             this.lblWinPercent.Name = "lblWinPercent";
-            this.lblWinPercent.Size = new System.Drawing.Size(30, 37);
+            this.lblWinPercent.Size = new System.Drawing.Size(35, 37);
             this.lblWinPercent.TabIndex = 4;
             this.lblWinPercent.Text = "0";
-
+            // 
             // lblWinPercentLabel
+            // 
             this.lblWinPercentLabel.AutoSize = true;
             this.lblWinPercentLabel.Font = new System.Drawing.Font("Arial", 12F);
             this.lblWinPercentLabel.Location = new System.Drawing.Point(190, 190);
             this.lblWinPercentLabel.Name = "lblWinPercentLabel";
-            this.lblWinPercentLabel.Size = new System.Drawing.Size(61, 18);
+            this.lblWinPercentLabel.Size = new System.Drawing.Size(53, 18);
             this.lblWinPercentLabel.TabIndex = 3;
             this.lblWinPercentLabel.Text = "Win %";
-
+            // 
             // lblPlayed
+            // 
             this.lblPlayed.AutoSize = true;
             this.lblPlayed.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblPlayed.Location = new System.Drawing.Point(70, 150);
             this.lblPlayed.Name = "lblPlayed";
-            this.lblPlayed.Size = new System.Drawing.Size(30, 37);
+            this.lblPlayed.Size = new System.Drawing.Size(35, 37);
             this.lblPlayed.TabIndex = 2;
             this.lblPlayed.Text = "0";
-
+            // 
             // lblPlayedLabel
+            // 
             this.lblPlayedLabel.AutoSize = true;
             this.lblPlayedLabel.Font = new System.Drawing.Font("Arial", 12F);
             this.lblPlayedLabel.Location = new System.Drawing.Point(60, 190);
             this.lblPlayedLabel.Name = "lblPlayedLabel";
-            this.lblPlayedLabel.Size = new System.Drawing.Size(53, 18);
+            this.lblPlayedLabel.Size = new System.Drawing.Size(56, 18);
             this.lblPlayedLabel.TabIndex = 1;
             this.lblPlayedLabel.Text = "Played";
-
+            // 
             // lblStatsTitle
+            // 
             this.lblStatsTitle.AutoSize = true;
             this.lblStatsTitle.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
             this.lblStatsTitle.Location = new System.Drawing.Point(250, 50);
             this.lblStatsTitle.Name = "lblStatsTitle";
-            this.lblStatsTitle.Size = new System.Drawing.Size(150, 37);
+            this.lblStatsTitle.Size = new System.Drawing.Size(163, 37);
             this.lblStatsTitle.TabIndex = 0;
             this.lblStatsTitle.Text = "Statistics";
-
+            // 
             // pnlGame
+            // 
             this.pnlGame.Controls.Add(this.btnGameBack);
             this.pnlGame.Controls.Add(this.lblGameTitle);
+            this.pnlGame.Controls.Add(this.btnEnter);
+            this.pnlGame.Controls.Add(this.btnBackspace);
             this.pnlGame.Location = new System.Drawing.Point(12, 12);
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(632, 547);
             this.pnlGame.TabIndex = 11;
-
+            // 
             // btnGameBack
+            // 
             this.btnGameBack.Location = new System.Drawing.Point(587, 14);
             this.btnGameBack.Name = "btnGameBack";
             this.btnGameBack.Size = new System.Drawing.Size(35, 23);
@@ -637,84 +694,39 @@ namespace Homework3
             this.btnGameBack.Text = "X";
             this.btnGameBack.UseVisualStyleBackColor = true;
             this.btnGameBack.Click += new System.EventHandler(this.btnGameBack_Click);
-
+            // 
             // lblGameTitle
+            // 
             this.lblGameTitle.AutoSize = true;
             this.lblGameTitle.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
-            this.lblGameTitle.Location = new System.Drawing.Point(250, 20);
+            this.lblGameTitle.Location = new System.Drawing.Point(250, 7);
             this.lblGameTitle.Name = "lblGameTitle";
-            this.lblGameTitle.Size = new System.Drawing.Size(120, 37);
+            this.lblGameTitle.Size = new System.Drawing.Size(126, 37);
             this.lblGameTitle.TabIndex = 0;
             this.lblGameTitle.Text = "Wordle";
-
-            // Game Grid
-            int tileSize = 50;
-            int spacing = 5;
-            int startX = 200;
-            int startY = 70;
-            for (int row = 0; row < 6; row++)
-            {
-                for (int col = 0; col < 5; col++)
-                {
-                    Panel tile = new Panel();
-                    tile.Size = new Size(tileSize, tileSize);
-                    tile.Location = new Point(startX + col * (tileSize + spacing), startY + row * (tileSize + spacing));
-                    tile.BorderStyle = BorderStyle.FixedSingle;
-                    tile.BackColor = Color.White;
-
-                    Label lblLetter = new Label();
-                    lblLetter.Font = new Font("Arial", 16, FontStyle.Bold);
-                    lblLetter.AutoSize = false;
-                    lblLetter.Size = new Size(tileSize, tileSize);
-                    lblLetter.TextAlign = ContentAlignment.MiddleCenter;
-                    lblLetter.BackColor = Color.Transparent;
-
-                    tile.Controls.Add(lblLetter);
-                    this.pnlGame.Controls.Add(tile);
-                    _gridLabels.Add(lblLetter);
-                }
-            }
-
-            // Keyboard
-            string[] rows = new string[] { "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM" };
-            int keyboardStartY = 400;
-            int keySize = 40;
-            int keySpacing = 5;
-            for (int row = 0; row < rows.Length; row++)
-            {
-                int rowLength = rows[row].Length;
-                int rowStartX = 200 + (10 - rowLength) * (keySize + keySpacing) / 2;
-                for (int col = 0; col < rowLength; col++)
-                {
-                    Button btn = new Button();
-                    btn.Size = new Size(keySize, keySize);
-                    btn.Location = new Point(rowStartX + col * (keySize + keySpacing), keyboardStartY + row * (keySize + keySpacing));
-                    btn.Text = rows[row][col].ToString();
-                    btn.Font = new Font("Arial", 12, FontStyle.Bold);
-                    btn.Click += new EventHandler(this.KeyboardButton_Click);
-                    this.pnlGame.Controls.Add(btn);
-                    _keyboardButtons.Add(rows[row][col], btn);
-                }
-            }
-
-            // Enter and Backspace Buttons
-            Button btnEnter = new Button();
-            btnEnter.Size = new Size(60, keySize);
-            btnEnter.Location = new Point(120, keyboardStartY + 2 * (keySize + keySpacing));
-            btnEnter.Text = "ENTER";
-            btnEnter.Font = new Font("Arial", 10, FontStyle.Bold);
-            btnEnter.Click += new EventHandler(this.KeyboardButton_Click);
-            this.pnlGame.Controls.Add(btnEnter);
-
-            Button btnBackspace = new Button();
-            btnBackspace.Size = new Size(60, keySize);
-            btnBackspace.Location = new Point(500, keyboardStartY + 2 * (keySize + keySpacing));
-            btnBackspace.Text = "⌫";
-            btnBackspace.Font = new Font("Arial", 12, FontStyle.Bold);
-            btnBackspace.Click += new EventHandler(this.KeyboardButton_Click);
-            this.pnlGame.Controls.Add(btnBackspace);
-
+            // 
+            // btnEnter
+            // 
+            this.btnEnter.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.btnEnter.Location = new System.Drawing.Point(18, 479);
+            this.btnEnter.Name = "btnEnter";
+            this.btnEnter.Size = new System.Drawing.Size(87, 40);
+            this.btnEnter.TabIndex = 2;
+            this.btnEnter.Text = "ENTER";
+            this.btnEnter.Click += new System.EventHandler(this.KeyboardButton_Click);
+            // 
+            // btnBackspace
+            // 
+            this.btnBackspace.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.btnBackspace.Location = new System.Drawing.Point(548, 479);
+            this.btnBackspace.Name = "btnBackspace";
+            this.btnBackspace.Size = new System.Drawing.Size(60, 40);
+            this.btnBackspace.TabIndex = 3;
+            this.btnBackspace.Text = "⌫";
+            this.btnBackspace.Click += new System.EventHandler(this.KeyboardButton_Click);
+            // 
             // Form1
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 565);
@@ -741,6 +753,10 @@ namespace Homework3
             this.pnlGame.ResumeLayout(false);
             this.pnlGame.PerformLayout();
             this.ResumeLayout(false);
+
         }
+
+        private Button btnEnter;
+        private Button btnBackspace;
     }
 }
